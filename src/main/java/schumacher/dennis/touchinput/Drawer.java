@@ -28,7 +28,6 @@ public class Drawer extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        System.out.println("repaint");
         g.setColor(Color.BLACK);
         if (point != null) {
             Dimension size = getSize();
