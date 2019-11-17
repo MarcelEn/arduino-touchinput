@@ -2,6 +2,7 @@ package schumacher.dennis.touchinput;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.InputEvent;
 
 public class Drawer extends JPanel {
     private final JFrame frame;
@@ -39,10 +40,15 @@ public class Drawer extends JPanel {
                         x + frame.getX() + frame.getWidth() - getWidth() - 4,
                         y + frame.getY() + frame.getHeight() - getHeight() - 4
                 );
+                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
             }
 
 
             g.fillOval(x, y, 7, 7);
+        }else {
+            if(robot != null){
+                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+            }
         }
     }
 }
