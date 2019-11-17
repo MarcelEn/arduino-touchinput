@@ -21,6 +21,10 @@ public class Frame extends JFrame {
     }
 
     private void onPoint(DoublePoint point){
+        DoublePoint result = serialInputParser.parse(point);
+
+        if(result == null && drawer.getPoint() == null) return;
+
         drawer.setPoint(serialInputParser.parse(point));
         repaint();
     }

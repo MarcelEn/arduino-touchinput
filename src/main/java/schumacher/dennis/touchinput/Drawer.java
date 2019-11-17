@@ -21,10 +21,14 @@ public class Drawer extends JPanel {
         this.point = point;
     }
 
+    public DoublePoint getPoint() {
+        return point;
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        super.repaint();
+        System.out.println("repaint");
         g.setColor(Color.BLACK);
         if (point != null) {
             Dimension size = getSize();
