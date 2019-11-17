@@ -8,6 +8,7 @@ public class Drawer extends JPanel {
     private final JFrame frame;
     private Robot robot = null;
     private DoublePoint point = null;
+    private DoublePoint before = null;
 
     public Drawer(JFrame frame) {
         this.frame = frame;
@@ -19,6 +20,7 @@ public class Drawer extends JPanel {
     }
 
     public void setPoint(DoublePoint point) {
+        before = this.point;
         this.point = point;
     }
 
@@ -35,20 +37,19 @@ public class Drawer extends JPanel {
             int x = (int) (size.getWidth() * point.getX() - 3);
             int y = (int) (size.getHeight() * point.getY() - 3);
 
-            if(robot != null){
+            if (robot != null) {
                 robot.mouseMove(
                         x + frame.getX() + frame.getWidth() - getWidth() - 4,
                         y + frame.getY() + frame.getHeight() - getHeight() - 4
                 );
-                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                if (before != null) {
+                    robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                }
             }
-
 
             g.fillOval(x, y, 7, 7);
-        }else {
-            if(robot != null){
-                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            }
+        } else {
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
         }
     }
 }
