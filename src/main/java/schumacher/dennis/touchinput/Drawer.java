@@ -10,7 +10,7 @@ public class Drawer extends JPanel {
     private DoublePoint point = null;
     private DoublePoint before = null;
 
-    public Drawer(JFrame frame) {
+    Drawer(JFrame frame) {
         this.frame = frame;
         try {
             this.robot = new Robot();
@@ -19,12 +19,12 @@ public class Drawer extends JPanel {
         }
     }
 
-    public void setPoint(DoublePoint point) {
+    void setPoint(DoublePoint point) {
         before = this.point;
         this.point = point;
     }
 
-    public DoublePoint getPoint() {
+    DoublePoint getPoint() {
         return point;
     }
 

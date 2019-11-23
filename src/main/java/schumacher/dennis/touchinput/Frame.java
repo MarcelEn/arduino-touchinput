@@ -3,21 +3,28 @@ package schumacher.dennis.touchinput;
 import com.fazecast.jSerialComm.SerialPort;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class Frame extends JFrame {
+class Frame extends JFrame {
     private final Drawer drawer;
     private final SerialInputParser serialInputParser;
+    private final SerialHandler serialHandler;
 
-    Frame(SerialPort serialPort) {
-        new SerialHandler(serialPort, this::onPoint);
+    Frame(SerialPort serialPort, int width, int height) {
+        this.serialHandler = new SerialHandler(serialPort, this::onPoint, this::onException);
         this.drawer = new Drawer(this);
         this.serialInputParser = new SerialInputParserImpl();
 
-        setSize(300, 200);
+        setTitle("Touchinput: " + serialPort.getDescriptivePortName());
+        setSize(width, height);
         add(drawer);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private void onException(Exception e) {
+        serialHandler.stopReading();
+        e.printStackTrace();
+        dispose();
     }
 
     private void onPoint(DoublePoint point){
