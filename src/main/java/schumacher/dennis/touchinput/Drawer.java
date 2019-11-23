@@ -48,7 +48,7 @@ public class Drawer extends JPanel {
             }
 
             g.fillOval(x, y, 7, 7);
-        } else {
+        } else if (before != null) {
             robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
         }
     }
