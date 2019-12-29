@@ -12,7 +12,10 @@ import org.apache.commons.cli.*;
 
 public class Main {
     public static void main(String[] args) {
+        new Main(args);
+    }
 
+    private Main(String[] args){
         SerialPort target = Objects.requireNonNullElseGet(
                 getSerialPortByArgs(args),
                 () -> Objects.requireNonNull(getSerialPortByOptionPane())
@@ -20,25 +23,8 @@ public class Main {
         new Frame(target, 1280, 720);
     }
 
-    private static SerialPort getSerialPortByArgs(String[] args) {
-        Options options = new Options();
-        Option serialPortOption = Option.builder()
-                .desc("Serial Port name of your Arduino")
-                .hasArg()
-                .argName("port")
-                .longOpt("port")
-                .type(String.class)
-                .build();
-
-        Option helpOption = Option.builder()
-                .desc("prints this help dialog")
-                .longOpt("help")
-                .hasArg(false)
-                .type(Boolean.class)
-                .build();
-
-        options.addOption(serialPortOption);
-        options.addOption(helpOption);
+    private SerialPort getSerialPortByArgs(String[] args) {
+        Options options = getOptions();
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -58,7 +44,29 @@ public class Main {
         }
     }
 
-    private static SerialPort getSerialPortByName(String portName) {
+    private Options getOptions() {
+        Options options = new Options();
+        Option serialPortOption = Option.builder()
+                .desc("Serial Port name of your Arduino")
+                .hasArg()
+                .argName("port")
+                .longOpt("port")
+                .type(String.class)
+                .build();
+
+        Option helpOption = Option.builder()
+                .desc("prints this help dialog")
+                .longOpt("help")
+                .hasArg(false)
+                .type(Boolean.class)
+                .build();
+
+        options.addOption(serialPortOption);
+        options.addOption(helpOption);
+        return options;
+    }
+
+    private SerialPort getSerialPortByName(String portName) {
         if (portName == null) return null;
         return Arrays.stream(SerialPort.getCommPorts())
                 .filter(port -> port.getDescriptivePortName().equals(portName))
@@ -66,7 +74,7 @@ public class Main {
                 .orElse(null);
     }
 
-    private static SerialPort getSerialPortByOptionPane() {
+    private SerialPort getSerialPortByOptionPane() {
         List<SerialPort> ports = Arrays.asList(SerialPort.getCommPorts());
         List<String> options = ports.stream()
                 .map(SerialPort::getDescriptivePortName)
@@ -77,7 +85,17 @@ public class Main {
             return null;
         }
 
-        int index = JOptionPane.showOptionDialog(
+        int index = getSelectedOption(options);
+
+        if (index == -1) {
+            return null;
+        }
+
+        return ports.get(index);
+    }
+
+    private int getSelectedOption(List<String> options) {
+        return JOptionPane.showOptionDialog(
                 null,
                 "Please select the port of your Arduino.",
                 "Serial Port Selection",
@@ -87,11 +105,5 @@ public class Main {
                 options.toArray(),
                 options.get(0)
         );
-
-        if (index == -1) {
-            return null;
-        }
-
-        return ports.get(index);
     }
 }
