@@ -1,15 +1,15 @@
-package schumacher.dennis.touchinput;
+package schumacher.dennis.visualisierungtouchpad;
 
-public class DoublePoint {
+public class DoppelPunkt {
     private Double x = null;
 
     private Double y = null;
 
 
-    public DoublePoint() {
+    public DoppelPunkt() {
     }
 
-    public DoublePoint(Double x, Double y) {
+    public DoppelPunkt(Double x, Double y) {
         this.x = x;
         this.y = y;
     }

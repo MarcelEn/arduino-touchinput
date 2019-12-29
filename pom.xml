@@ -38,7 +38,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>schumacher.dennis.touchinput.Main</mainClass>
+                            <mainClass>schumacher.dennis.visualisierungtouchpad.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

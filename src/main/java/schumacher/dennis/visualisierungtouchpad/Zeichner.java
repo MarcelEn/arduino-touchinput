@@ -1,16 +1,16 @@
-package schumacher.dennis.touchinput;
+package schumacher.dennis.visualisierungtouchpad;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
 
-public class Drawer extends JPanel {
+public class Zeichner extends JPanel {
     private final JFrame frame;
     private Robot robot = null;
-    private DoublePoint point = null;
-    private DoublePoint before = null;
+    private DoppelPunkt punkt = null;
+    private DoppelPunkt punktDavor = null;
 
-    Drawer(JFrame frame) {
+    Zeichner(JFrame frame) {
         this.frame = frame;
         try {
             this.robot = new Robot();
@@ -19,36 +19,36 @@ public class Drawer extends JPanel {
         }
     }
 
-    void setPoint(DoublePoint point) {
-        before = this.point;
-        this.point = point;
+    void setPunkt(DoppelPunkt punkt) {
+        punktDavor = this.punkt;
+        this.punkt = punkt;
     }
 
-    DoublePoint getPoint() {
-        return point;
+    DoppelPunkt getPunkt() {
+        return punkt;
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        g.setColor(Color.BLACK);
-        if (point != null) {
+    public void paint(Graphics graphics) {
+        super.paint(graphics);
+        graphics.setColor(Color.BLACK);
+        if (punkt != null) {
             Dimension size = getSize();
-            int x = (int) (size.getWidth() * point.getX() - 3);
-            int y = (int) (size.getHeight() * point.getY() - 3);
+            int x = (int) (size.getWidth() * punkt.getX() - 3);
+            int y = (int) (size.getHeight() * punkt.getY() - 3);
 
             if (robot != null) {
                 robot.mouseMove(
                         x + frame.getX() + frame.getWidth() - getWidth() - 4,
                         y + frame.getY() + frame.getHeight() - getHeight() - 4
                 );
-                if (before != null) {
+                if (punktDavor != null) {
                     robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
                 }
             }
 
-            g.fillOval(x, y, 7, 7);
-        } else if (before != null) {
+            graphics.fillOval(x, y, 7, 7);
+        } else if (punktDavor != null) {
             robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
         }
     }
