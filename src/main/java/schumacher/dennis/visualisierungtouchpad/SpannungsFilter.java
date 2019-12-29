@@ -1,5 +1,5 @@
 package schumacher.dennis.visualisierungtouchpad;
 
 public interface SpannungsFilter {
-    public DoppelPunkt parse(DoppelPunkt point);
+  public DoppelPunkt konvertiereSpannungInKoordinate(DoppelPunkt point);
 }
