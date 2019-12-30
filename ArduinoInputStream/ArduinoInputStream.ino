@@ -11,7 +11,7 @@ void setup() {
 }
 
 void loop() {
-  //-------------------------------------------Read X
+  //-------------------------------------------Read Y
   pinMode(Y1, INPUT);
   pinMode(X2, OUTPUT);
   pinMode(Y2, INPUT);
@@ -21,7 +21,7 @@ void loop() {
   digitalWrite(X1, HIGH);
   delay(1); //Warten bis Spannung stabil ist
   ValueY = analogRead(Y1);
-  //-------------------------------------------Read Y
+  //-------------------------------------------Read X
   pinMode(Y1, OUTPUT);
   pinMode(X2, INPUT);
   pinMode(Y2, OUTPUT);
