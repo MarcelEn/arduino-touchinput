@@ -57,14 +57,14 @@ public class Zeichner extends JPanel {
   }
 
   /**
-   * gibt den aktuellen Pixel der Y-Koordinate zurück
+   * Gibt den aktuellen Pixel der Y-Koordinate zurück
    */
   private int bekommeAktuelleYKoordinate() {
     return (int) (getSize().getHeight() * punkt.getY());
   }
 
   /**
-   * gibt den aktuellen Pixel der X-Koordinate zurück
+   * Gibt den aktuellen Pixel der X-Koordinate zurück
    */
   private int bekommeAktuelleXKoordinate() {
     return (int) (getSize().getWidth() * punkt.getX());
@@ -80,7 +80,7 @@ public class Zeichner extends JPanel {
   }
 
   /**
-   * Bewegt die Maus an die zu Koordinate und
+   * Bewegt die Maus an die Koordinate und
    * drückt ggf. die linke Maustaste
    */
   private void steuereMaus(int x, int y) {

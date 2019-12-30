@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.function.Consumer;
 
 /**
- * Abstrahiert das lesen des seriellen Datenstroms
+ * Abstrahiert das Lesen des seriellen Datenstroms
  */
 public class DatenstromAufbereiter extends Thread {
   private final SerialPort serialPort;
@@ -59,9 +59,9 @@ public class DatenstromAufbereiter extends Thread {
   }
 
   /**
-   * ließt den DatenStrom und gibt, sobald es eine neue Zeile gibt diese zurück
-   * readLine des BufferedReaders wurde nicht verwendet, aufgrund von Konflikten
-   * des LineBreaks auf Linux und Windows
+   * Ließt den Datenstrom und gibt, sobald es eine neue Zeile gibt diese zurück.
+   * ReadLine des BufferedReaders wurde nicht verwendet, aufgrund von Konflikten
+   * des Zeilenumbruchs auf Linux und Windows
    */
   private String leseNaechsteZeile() {
     StringBuilder builder = new StringBuilder();

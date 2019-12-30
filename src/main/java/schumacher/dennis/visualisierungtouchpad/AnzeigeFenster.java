@@ -51,7 +51,7 @@ class AnzeigeFenster extends JFrame {
   /**
    * Konsumierer, der im Falle eines neuen Punktes aufgerufen wird.
    * - Konvertiert den generierten Punkt
-   * - zeichnet bei notwendigkeit die grafische Oberfläche neu
+   * - Zeichnet bei Notwendigkeit die grafische Oberfläche neu
    */
   private void beiPunkt(DoppelPunkt point) {
     DoppelPunkt ergebnis = spannungsFilter.konvertiereSpannungInKoordinate(point);
