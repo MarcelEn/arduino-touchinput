@@ -25,7 +25,7 @@ public class SpannungsFilterImplementierung implements SpannungsFilter {
    */
   @Override
   public DoppelPunkt konvertiereSpannungInKoordinate(DoppelPunkt punkt) {
-    if (punkt.getX() > X_MAX || punkt.getY() > Y_MAX){
+    if (punkt.getX() > X_MAX || punkt.getY() > Y_MAX || punkt.getX() < X_MIN || punkt.getY() < Y_MIN){
       return null;
     }
 
