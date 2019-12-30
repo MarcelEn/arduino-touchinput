@@ -5,10 +5,14 @@ import com.fazecast.jSerialComm.*;
 import java.io.*;
 import java.util.function.Consumer;
 
+/**
+ * Abstrahiert das lesen des seriellen Datenstroms
+ */
 public class DatenstromAufbereiter extends Thread {
   private final SerialPort serialPort;
   private final Consumer<DoppelPunkt> beiPunkt;
   private final Consumer<Exception> beiFehler;
+  private BufferedReader reader;
   private boolean lese = true;
 
 
@@ -20,35 +24,64 @@ public class DatenstromAufbereiter extends Thread {
     start();
   }
 
+  /**
+   * Wird nach dem Start des Threads aufgerufen
+   */
   @Override
   public void run() {
-    try {
-      serialPort.openPort();
-      BufferedReader reader = new BufferedReader(new InputStreamReader((serialPort.getInputStream())));
+    initialisierePort();
+    intepretiereUndDelegiereDatenstrom();
+  }
 
-      StringBuilder builder = new StringBuilder();
+  /**
+   * Öffnet den Port und erstellt einen BufferedReader, um den Stream lesen zu können
+   */
+  private void initialisierePort() {
+    serialPort.openPort();
+    reader = new BufferedReader(new InputStreamReader((serialPort.getInputStream())));
+  }
 
-      while (this.lese) {
-        try {
-          builder.append((char) reader.read());
-          String string = builder.toString();
-          if (string.contains("\n")) {
-            DoppelPunkt punkt = konvertiereZuPunkt(string);
-            if (punkt != null) {
-              beiPunkt.accept(punkt);
-            }
-            builder = new StringBuilder();
-          }
-        } catch (IOException ignore) {
-        } catch (Exception e) {
-          beiFehler.accept(e);
+  /**
+   * Ließt den Datenstrom und ruft bei einem Punkt oder Fehler die entsprechenden
+   * Rückrufmethoden auf (beiPunkt / beiFehler)
+   */
+  private void intepretiereUndDelegiereDatenstrom() {
+    while (this.lese) {
+      try {
+        DoppelPunkt punkt = konvertiereZuPunkt(leseNaechsteZeile());
+        if (punkt != null) {
+          beiPunkt.accept(punkt);
         }
+      } catch (Exception e) {
+        beiFehler.accept(e);
       }
-    } catch (Exception e) {
-      beiFehler.accept(e);
     }
   }
 
+  /**
+   * ließt den DatenStrom und gibt, sobald es eine neue Zeile gibt diese zurück
+   * readLine des BufferedReaders wurde nicht verwendet, aufgrund von Konflikten
+   * des LineBreaks auf Linux und Windows
+   */
+  private String leseNaechsteZeile() {
+    StringBuilder builder = new StringBuilder();
+    while (this.lese) {
+      try {
+        builder.append((char) reader.read());
+        String string = builder.toString();
+        if (string.contains("\n")) {
+          return string;
+        }
+      } catch (IOException ignore) {
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Konvertiert eine Zeichenkette des Schemas "Double;Double;\n" => "234;343;\n"
+   * in ein DoppelPunkt Object
+   */
   private DoppelPunkt konvertiereZuPunkt(String string) {
     try {
       String[] split = string.split(";");
@@ -60,6 +93,9 @@ public class DatenstromAufbereiter extends Thread {
     return null;
   }
 
+  /**
+   * Hiermit wird der asynchrone Prozess in dem Lesethread beendet
+   */
   void stoppeLesen() {
     this.lese = false;
   }

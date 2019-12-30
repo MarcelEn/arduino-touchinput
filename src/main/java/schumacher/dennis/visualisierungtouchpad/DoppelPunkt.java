@@ -1,31 +1,26 @@
 package schumacher.dennis.visualisierungtouchpad;
 
+/**
+ * Beinhalted die Informationen eines Punktes in Form zweier Doubles
+ */
 public class DoppelPunkt {
-  private Double x = null;
-
-  private Double y = null;
-
-
-  public DoppelPunkt() {
-  }
+  private Double x, y;
 
   public DoppelPunkt(Double x, Double y) {
     this.x = x;
     this.y = y;
   }
 
-  public void setX(Double x) {
-    this.x = x;
-  }
-
-  public void setY(Double y) {
-    this.y = y;
-  }
-
+  /**
+   * Gibt den X-Wert zurück
+   */
   public Double getX() {
     return x;
   }
 
+  /**
+   * Gibt den X-Wert zurück
+   */
   public Double getY() {
     return y;
   }

@@ -1,6 +1,13 @@
 package schumacher.dennis.visualisierungtouchpad;
 
+/**
+ * Implementiert das Interface SpannungsFilter
+ * Dieser definiert die Funktionionen, welche benötigt werden, um die Spannung korrekt umzuwandeln
+ */
 public class SpannungsFilterImplementierung implements SpannungsFilter {
+  /**
+   * Spannungskonstanten
+   */
   private static final double X_MIN = 66,
           X_MAX = 961,
           X_DIFF = X_MAX - X_MIN,
@@ -10,12 +17,16 @@ public class SpannungsFilterImplementierung implements SpannungsFilter {
 
   /**
    * Intepretiert Spannungen
-   * - 
+   * - Spannungen, welche X > 961 mV oder Y > 911 mV enthalten werden als kein Druck intepretiert
+   *   zurückgegeben wird somit "null"
+   * - ansonsten wird Spannung jeweils auf einen DoublePoint mit den Werten von 0 - 1 umgewandelt,
+   *   um später proportional damit arbeiten zu können
    */
   @Override
   public DoppelPunkt konvertiereSpannungInKoordinate(DoppelPunkt punkt) {
-    if (punkt.getX() > X_MAX || punkt.getY() > Y_MAX)
+    if (punkt.getX() > X_MAX || punkt.getY() > Y_MAX){
       return null;
+    }
 
     double x = (punkt.getX() - X_MIN) / X_DIFF;
     double y = 1 - (punkt.getY() - Y_MIN) / Y_DIFF;
