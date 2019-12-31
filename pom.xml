@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Stellt Metainformationen zu dem Projekt bereit -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Artefaktinformationen -->
     <groupId>schumacher.dennis</groupId>
-    <artifactId>touchinput</artifactId>
+    <artifactId>visualisierungtouchpad</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- Projekeigenschaften -->
     <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8
-        </maven.compiler.source>
-        <maven.compiler.target>1.8
-        </maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8
+        <!-- Definiert die Version von Java im Quellcode, sowie in welche dieser kompiliert werden soll -->
+        <java.version>9</java.version>
+        <!-- Definiert, in welchem Standard die Zeichen im Quellcode gespeichert werden -->
+        <project.build.sourceEncoding>
+            UTF-8
         </project.build.sourceEncoding>
     </properties>
 
+    <!-- Externe Abhängigkeiten -->
     <dependencies>
+        <!-- Abstraktion zum Lesen des seriellen Datenstroms -->
         <dependency>
             <groupId>com.fazecast</groupId>
             <artifactId>jSerialComm</artifactId>
             <version>2.5.2</version>
         </dependency>
+        <!-- Vereinfacht das Lesen von Kommandozeilenargumenten -->
         <dependency>
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
@@ -32,8 +37,10 @@
 
     </dependencies>
 
+    <!-- Maven spezifische Bau-Phasen -->
     <build>
         <plugins>
+            <!-- Generiert eine Jar mit Abhängikeiten -->
             <plugin>
                 <groupId>org.apache.maven.plugins
                 </groupId>
@@ -64,6 +71,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Kompiliert den Quellcode -->
             <plugin>
                 <groupId>org.apache.maven.plugins
                 </groupId>
