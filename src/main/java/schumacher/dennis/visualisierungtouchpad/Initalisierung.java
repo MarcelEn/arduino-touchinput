@@ -13,9 +13,12 @@ import java.util.stream.Collectors;
  * Sammelt die nötigen Informationen und erstellt das Anzeigefenster
  */
 public class Initalisierung {
+  private SerialPort serialPort;
+  private AnzeigeFenster anzeigeFenster;
+
   public Initalisierung(String[] argumente) {
-    SerialPort serialPort = bekommeSeriellenPort(argumente);
-    new AnzeigeFenster(serialPort, 1280, 720);
+    serialPort = bekommeSeriellenPort(argumente);
+    anzeigeFenster = new AnzeigeFenster(serialPort, 1280, 720);
   }
 
   /**

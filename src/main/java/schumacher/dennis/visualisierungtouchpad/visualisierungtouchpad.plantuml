@@ -1,0 +1,110 @@
+@startuml
+  namespace schumacher.dennis.visualisierungtouchpad {
+    class schumacher.dennis.visualisierungtouchpad.AnzeigeFenster {
+        ~ AnzeigeFenster()
+        - beiFehler()
+        - beiPunkt()
+        - initialisiereNutzerOberfl�che()
+    }
+  }
+  
+
+  namespace schumacher.dennis.visualisierungtouchpad {
+    class schumacher.dennis.visualisierungtouchpad.DatenstromAufbereiter {
+        - beiFehler : Consumer<Exception>
+        - beiPunkt : Consumer<DoppelPunkt>
+        - lese : boolean
+        - reader : BufferedReader
+        - serialPort : SerialPort
+        + run()
+        ~ DatenstromAufbereiter()
+        ~ stoppeLesen()
+        - initialisierePort()
+        - intepretiereUndDelegiereDatenstrom()
+        - konvertiereZuPunkt()
+        - leseNaechsteZeile()
+    }
+  }
+  
+
+  namespace schumacher.dennis.visualisierungtouchpad {
+    class schumacher.dennis.visualisierungtouchpad.DoppelPunkt {
+        - x : Double
+        - y : Double
+        + DoppelPunkt()
+        + getX()
+        + getY()
+    }
+  }
+  
+
+  namespace schumacher.dennis.visualisierungtouchpad {
+    class schumacher.dennis.visualisierungtouchpad.Initalisierung {
+        - serialPort : SerialPort
+        + Initalisierung()
+        - bekommeOptionen()
+        - bekommeSelektierteOptionsIndex()
+        - bekommeSerialPortDurchName()
+        - bekommeSeriellenPort()
+        - bekommeSeriellenPortUeberOptionPane()
+        - extrahiereSeriellenPortAusArgumenten()
+        - parseKommandozeile()
+        - zeigeHilfeAn()
+    }
+  }
+  
+
+  namespace schumacher.dennis.visualisierungtouchpad {
+    class schumacher.dennis.visualisierungtouchpad.Main {
+        {static} + main()
+    }
+  }
+  
+
+  namespace schumacher.dennis.visualisierungtouchpad {
+    interface schumacher.dennis.visualisierungtouchpad.SpannungsFilter {
+        {abstract} + konvertiereSpannungInKoordinate()
+    }
+  }
+  
+
+  namespace schumacher.dennis.visualisierungtouchpad {
+    class schumacher.dennis.visualisierungtouchpad.SpannungsFilterImplementierung {
+        {static} - X_DIFF : double
+        {static} - X_MAX : double
+        {static} - X_MIN : double
+        {static} - Y_DIFF : double
+        {static} - Y_MAX : double
+        {static} - Y_MIN : double
+        + konvertiereSpannungInKoordinate()
+    }
+  }
+  
+
+  namespace schumacher.dennis.visualisierungtouchpad {
+    class schumacher.dennis.visualisierungtouchpad.Zeichner {
+        - frame : JFrame
+        - robot : Robot
+        + paint()
+        ~ Zeichner()
+        ~ getPunkt()
+        ~ setPunkt()
+        - bekommeAktuelleXKoordinate()
+        - bekommeAktuelleYKoordinate()
+        - korrigierePunktbreite()
+        - steuereMaus()
+    }
+  }
+  
+
+  schumacher.dennis.visualisierungtouchpad.AnzeigeFenster -up-|> javax.swing.JFrame
+  schumacher.dennis.visualisierungtouchpad.AnzeigeFenster o-- schumacher.dennis.visualisierungtouchpad.DatenstromAufbereiter : datenstromAufbereiter
+  schumacher.dennis.visualisierungtouchpad.AnzeigeFenster o-- schumacher.dennis.visualisierungtouchpad.SpannungsFilter : spannungsFilter
+  schumacher.dennis.visualisierungtouchpad.AnzeigeFenster o-- schumacher.dennis.visualisierungtouchpad.Zeichner : zeichner
+  schumacher.dennis.visualisierungtouchpad.Initalisierung o-- schumacher.dennis.visualisierungtouchpad.AnzeigeFenster : anzeigeFenster
+  schumacher.dennis.visualisierungtouchpad.SpannungsFilterImplementierung .up.|> schumacher.dennis.visualisierungtouchpad.SpannungsFilter
+  schumacher.dennis.visualisierungtouchpad.Zeichner -up-|> javax.swing.JPanel
+  schumacher.dennis.visualisierungtouchpad.Zeichner o-- schumacher.dennis.visualisierungtouchpad.DoppelPunkt : punkt
+  schumacher.dennis.visualisierungtouchpad.Zeichner o-- schumacher.dennis.visualisierungtouchpad.DoppelPunkt : punktDavor
+
+@enduml
