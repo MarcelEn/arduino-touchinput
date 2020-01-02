@@ -1,9 +1,5 @@
-int ValueY;
-int ValueX;
-int Y1 = A0;
-int X2 = A1;
-int Y2 = A2;
-int X1 = A3;
+int Y;
+int X;
 
 void setup() {
   Serial.begin(9600);
@@ -11,31 +7,47 @@ void setup() {
 }
 
 void loop() {
-  //-------------------------------------------Read Y
-  pinMode(Y1, INPUT);
-  pinMode(X2, OUTPUT);
-  pinMode(Y2, INPUT);
-  pinMode(X1, OUTPUT);
+  // Lese Y
+  bereiteYVor();
+  Y = analogRead(A0);
 
-  digitalWrite(X2, LOW);
-  digitalWrite(X1, HIGH);
-  delay(1); //Warten bis Spannung stabil ist
-  ValueY = analogRead(Y1);
-  //-------------------------------------------Read X
-  pinMode(Y1, OUTPUT);
-  pinMode(X2, INPUT);
-  pinMode(Y2, OUTPUT);
-  pinMode(X1, INPUT);
-  digitalWrite(Y1, LOW);
-  digitalWrite(Y2, HIGH);
-  delay(1); //Warten bis Spannung stabil ist
-  ValueX = analogRead(X2);
-  Serial.print(ValueX);
+  // Lese X
+  bereiteXVor();
+  X = analogRead(A1);
+
+  schreibeErgebnis();
+
+  delay(50);
+}
+
+void bereiteYVor() {
+  pinMode(A0, INPUT);
+  pinMode(A1, OUTPUT);
+  pinMode(A2, INPUT);
+  pinMode(A3, OUTPUT);
+
+  digitalWrite(A1, LOW);
+  digitalWrite(A3, HIGH);
+
+  delay(1); // Warten bis Spannung stabil ist
+}
+
+void bereiteXVor(){
+  pinMode(A0, OUTPUT);
+  pinMode(A1, INPUT);
+  pinMode(A2, OUTPUT);
+  pinMode(A3, INPUT);
+
+  digitalWrite(A0, LOW);
+  digitalWrite(A2, HIGH);
+
+  delay(1); // Warten bis Spannung stabil ist
+}
+
+void schreibeErgebnis(){
+  Serial.print(X);
   Serial.print(";");
-  Serial.print(ValueY);
+  Serial.print(Y);
   Serial.print(";");
   Serial.print("\n");
-  
-  //--- end
-  delay(50);
 }
