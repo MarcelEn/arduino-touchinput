@@ -4,10 +4,10 @@
         ~ AnzeigeFenster()
         - beiFehler()
         - beiPunkt()
-        - initialisiereNutzerOberfl�che()
+        - initialisiereNutzerOberflaeche()
     }
   }
-  
+
 
   namespace schumacher.dennis.visualisierungtouchpad {
     class schumacher.dennis.visualisierungtouchpad.DatenstromAufbereiter {
@@ -25,7 +25,7 @@
         - leseNaechsteZeile()
     }
   }
-  
+
 
   namespace schumacher.dennis.visualisierungtouchpad {
     class schumacher.dennis.visualisierungtouchpad.DoppelPunkt {
@@ -36,7 +36,7 @@
         + getY()
     }
   }
-  
+
 
   namespace schumacher.dennis.visualisierungtouchpad {
     class schumacher.dennis.visualisierungtouchpad.Initalisierung {
@@ -52,21 +52,21 @@
         - zeigeHilfeAn()
     }
   }
-  
+
 
   namespace schumacher.dennis.visualisierungtouchpad {
     class schumacher.dennis.visualisierungtouchpad.Main {
         {static} + main()
     }
   }
-  
+
 
   namespace schumacher.dennis.visualisierungtouchpad {
     interface schumacher.dennis.visualisierungtouchpad.SpannungsFilter {
         {abstract} + konvertiereSpannungInKoordinate()
     }
   }
-  
+
 
   namespace schumacher.dennis.visualisierungtouchpad {
     class schumacher.dennis.visualisierungtouchpad.SpannungsFilterImplementierung {
@@ -79,7 +79,7 @@
         + konvertiereSpannungInKoordinate()
     }
   }
-  
+
 
   namespace schumacher.dennis.visualisierungtouchpad {
     class schumacher.dennis.visualisierungtouchpad.Zeichner {
@@ -95,7 +95,7 @@
         - steuereMaus()
     }
   }
-  
+
 
   schumacher.dennis.visualisierungtouchpad.AnzeigeFenster -up-|> javax.swing.JFrame
   schumacher.dennis.visualisierungtouchpad.AnzeigeFenster o-- schumacher.dennis.visualisierungtouchpad.DatenstromAufbereiter : datenstromAufbereiter

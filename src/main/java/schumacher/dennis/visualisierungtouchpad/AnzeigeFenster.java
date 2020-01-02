@@ -19,7 +19,7 @@ class AnzeigeFenster extends JFrame {
     this.zeichner = new Zeichner(this);
     this.spannungsFilter = new SpannungsFilterImplementierung();
 
-    initialisiereNutzerOberfläche(width, height, serialPort.getDescriptivePortName());
+    initialisiereNutzerOberflaeche(width, height, serialPort.getDescriptivePortName());
   }
 
   /**
@@ -30,7 +30,7 @@ class AnzeigeFenster extends JFrame {
    * - Sichtbarkeit
    * - Standard Operation die beim Schließen der Anwendung geschehen soll
    */
-  private void initialisiereNutzerOberfläche(int width, int height, String name) {
+  private void initialisiereNutzerOberflaeche(int width, int height, String name) {
     setTitle("Visualisierung Touchpad: " + name);
     setSize(width, height);
     add(zeichner);
